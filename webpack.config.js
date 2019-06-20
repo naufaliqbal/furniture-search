@@ -1,8 +1,10 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ASSET_PATH = process.env.ASSET_PATH || '/';
 
 module.exports = {
     mode: 'production',
@@ -54,12 +56,15 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'css/[name].[hash].css',
             chunkFilename: 'css/[name].[hash].css'
-        })
+        }),
+        new webpack.DefinePlugin({
+            'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH)
+          })
     ],
     output: {
         filename: 'js/[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/'
+        publicPath: ASSET_PATH
     },
     optimization: {
         runtimeChunk: 'single',
