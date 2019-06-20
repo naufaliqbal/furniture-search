@@ -5,7 +5,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: {
         'app': './src/index.js'
     },
@@ -33,7 +33,7 @@ module.exports = {
                 {
                     loader: MiniCssExtractPlugin.loader,
                     options: {
-                        hmr: process.env.NODE_ENV === 'development',
+                        hmr: process.env.NODE_ENV === 'production',
                     },
                 },
                 'css-loader',
@@ -47,7 +47,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Output Management',
+            title: 'Webpack Demo',
             template: 'src/template.html'
         }),
         new VueLoaderPlugin(),
