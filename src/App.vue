@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted () {    
-    fetch('http://www.mocky.io/v2/5c9105cb330000112b649af8')
+    fetch('https://www.mocky.io/v2/5c9105cb330000112b649af8')
       .then(resp => resp.json())
       .then(data => {
         this.furnitureStyles = data.furniture_styles
