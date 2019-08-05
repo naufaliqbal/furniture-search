@@ -3,12 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+require("babel-polyfill");
 
 module.exports = {
-    mode: 'production',
-    entry: {
-        'app': './src/index.js'
-    },
+    mode: 'development',
+    entry: ["babel-polyfill", "./src/index.js"],
     resolve: {
         extensions: ['*', '.js', '.vue', '.json']
     },
@@ -21,7 +20,8 @@ module.exports = {
             exclude: /node_modules/,
             loader: 'babel-loader',
             options: {
-                presets: ['@babel/preset-env']
+                presets: ['@babel/preset-env'],
+                plugins: ["transform-regenerator"]
             }
         }, {
             test: /\.(sc|c|sa)ss$/,
@@ -46,14 +46,14 @@ module.exports = {
         }),
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'css/[name].[hash].css',
-            chunkFilename: 'css/[name].[hash].css'
+            filename: '[name].[hash].css',
+            chunkFilename: '[name].[hash].css'
         })
     ],
     output: {
-        filename: 'js/[name].[contenthash].js',
+        filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: './'
+        publicPath: '/'
     },
     optimization: {
         runtimeChunk: 'single',

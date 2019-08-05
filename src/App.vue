@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="app__logo">
+    <!-- <div id="app__logo">
       <img :src="fabelioLogo" alt="fabelio-logo">
     </div>
     <div id="app__header">
@@ -8,13 +8,17 @@
         <FurnitureSearch v-model="searchKeyword"></FurnitureSearch>
       </div>
       <div id="app__header--filter">
-        <FurnitureStyles :furnitureStyles="furnitureStyles" v-model="checkedStyles"></FurnitureStyles>
+        <FurnitureStyles v-model="checkedStyles"></FurnitureStyles>
         <FurnitureDelivery v-model="rangeDelivery"></FurnitureDelivery>
       </div>
     </div>
     <div id="app__body">
       <FurnitureLists :filteredProducts="filteredProducts" :outOfStock="isOutOfStock"></FurnitureLists>
-    </div>
+    </div> -->
+    <div id="app__header--filter">
+        <FurnitureStyles v-model="checkedStyles"></FurnitureStyles>
+        <!-- <FurnitureDelivery v-model="rangeDelivery"></FurnitureDelivery> -->
+      </div>
   </div>
 </template>
 
@@ -23,6 +27,7 @@ import FurnitureStyles from './components/FurnitureStyles'
 import FurnitureDelivery from './components/FurnitureDelivery'
 import FurnitureLists from './components/FurnitureLists'
 import FurnitureSearch from './components/FurnitureSearch'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'app',
@@ -34,8 +39,6 @@ export default {
   },
   data () {
     return {
-      furnitureStyles: [],
-      furnitureProducts: [],
       checkedStyles: [],
       rangeDelivery: [],
       searchKeyword: '',
@@ -43,26 +46,11 @@ export default {
       fabelioLogo: require('./assets/fabelio.png')
     }
   },
-  mounted () {    
-    fetch('https://www.mocky.io/v2/5c9105cb330000112b649af8')
-      .then(resp => resp.json())
-      .then(data => {
-        this.furnitureStyles = data.furniture_styles
-        this.furnitureProducts = data.products.map(el => {
-          if (+el.delivery_time <= 7) {
-            el['range_delivery'] = '1 week'
-          } else if (+el.delivery_time > 7 && +el.delivery_time <= 14) {
-            el['range_delivery'] = '2 weeks'
-          } else if (+el.delivery_time > 14 && +el.delivery_time <= 30) {
-            el['range_delivery'] = '1 month'
-          } else {
-            el['range_delivery'] = 'more'
-          }
-          return el
-        })
-      })
-  },
   computed: {
+    ...mapGetters([
+      "furnitureStyles",
+      "furnitureProducts"
+    ]),
     filteredProducts () {
       let vm = this
       if (

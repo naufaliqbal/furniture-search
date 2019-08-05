@@ -1,6 +1,6 @@
 <template>
-  <div id="furniture-styles">
-    <div id="furniture-styles__list" @mouseenter="expandStyles($event.target)" @mouseleave="collapseStyle($event.target)">
+  <div id="furniture-styles">Bambang
+    <!-- <div id="furniture-styles__list" @mouseenter="expandStyles($event.target)" @mouseleave="collapseStyle($event.target)">
       <p>{{placeholder ? placeholder : 'Furniture Styles'}}</p>
       <ul>
         <li v-for="(value, index) in furnitureStyles" :key="value" :data-index="index">
@@ -18,14 +18,14 @@
           </div>
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 export default {
   name: 'FurnitureStyles',
-  props: ['furnitureStyles', 'value'],
+  props: ['value'],
   data () {
     return {
       placeholder: ''
