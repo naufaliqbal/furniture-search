@@ -42,7 +42,7 @@ const store = new Vuex.Store({
   }
 })
 
-store.dispatch("getFurnitureData")
+store.dispatch("getFurnitureData");
 
 new Vue({
   render: h => h(App),
