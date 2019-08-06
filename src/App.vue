@@ -46,6 +46,9 @@ export default {
       fabelioLogo: require('./assets/fabelio.png')
     }
   },
+  beforeMount() {
+    this.$store.dispatch("getFurnitureData");
+  },
   computed: {
     ...mapGetters([
       "furnitureStyles",
