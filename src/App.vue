@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- <div id="app__logo">
+    <div id="app__logo">
       <img :src="fabelioLogo" alt="fabelio-logo">
     </div>
     <div id="app__header">
@@ -14,10 +14,10 @@
     </div>
     <div id="app__body">
       <FurnitureLists :filteredProducts="filteredProducts" :outOfStock="isOutOfStock"></FurnitureLists>
-    </div> -->
+    </div>
     <div id="app__header--filter">
         <FurnitureStyles v-model="checkedStyles"></FurnitureStyles>
-        <!-- <FurnitureDelivery v-model="rangeDelivery"></FurnitureDelivery> -->
+        <FurnitureDelivery v-model="rangeDelivery"></FurnitureDelivery>
       </div>
   </div>
 </template>
@@ -51,9 +51,23 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "furnitureStyles",
-      "furnitureProducts"
+      "furnitureStyles"
     ]),
+    furnitureProducts() {
+      const products = this.$store.getters.furnitureProducts.map(el => {
+          if (+el.delivery_time <= 7) {
+            el['range_delivery'] = '1 week'
+          } else if (+el.delivery_time > 7 && +el.delivery_time <= 14) {
+            el['range_delivery'] = '2 weeks'
+          } else if (+el.delivery_time > 14 && +el.delivery_time <= 30) {
+            el['range_delivery'] = '1 month'
+          } else {
+            el['range_delivery'] = 'more'
+          }
+          return el
+      })
+      return products
+    },
     filteredProducts () {
       let vm = this
       if (
