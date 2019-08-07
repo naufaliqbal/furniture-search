@@ -1,6 +1,10 @@
 <template>
   <div id="furniture-delivery">
-    <div id="furniture-delivery__list" @mouseenter="expandStyles($event.target)" @mouseleave="collapseStyle($event.target)">
+    <div
+      id="furniture-delivery__list"
+      @mouseenter="expandStyles($event)"
+      @mouseleave="collapseStyle($event)"
+    >
       <p>{{placeholder ? placeholder : 'Delivery Time'}}</p>
       <ul>
         <li v-for="(value, index) in rangeDelivery" :key="value" :data-index="index">
@@ -11,8 +15,8 @@
                 type="checkbox"
                 :id="index"
                 :value="value"
-                @click="selectedStyle($event.target)"
-              >
+                @click="selectRange($event)"
+              />
               <span class="checkmark"></span>
             </label>
           </div>
@@ -23,32 +27,18 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: 'FurnitureDelivery',
-  props: ['value'],
-  data () {
-    return {
-      rangeDelivery: ['1 week', '2 weeks', '1 month', 'more'],
-      placeholder: ''
-    }
-  },
-  methods: {
-    selectedStyle (target) {
-      // sync with app.vue
-      target.checked
-        ? this.value.push(target.value)
-        : this.value.splice(this.value.indexOf(target.value), 1)
-      // change placeholder
-      this.placeholder = this.value.join(', ')
-    },
-    expandStyles (target) {
-      target.querySelector('p').classList.add('expanded')
-    },
-    collapseStyle (target) {
-      target.querySelector('p').classList.remove('expanded')
-    }
-  }
-}
+  computed: mapGetters("furnitureDelivery", [
+    "rangeDelivery",
+    "placeholder"
+  ]),
+  methods: mapActions("furnitureDelivery", [
+    "collapseStyle",
+    "expandStyles",
+    "selectRange"
+  ])
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

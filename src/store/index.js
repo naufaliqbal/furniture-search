@@ -1,16 +1,17 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import App from './App.vue'
-import Promise from 'promise-polyfill'
-
-if (!window.Promise) {
-	window.Promise = Promise
-}
+import Vue from "vue"
+import Vuex from "vuex"
+import furnitureDelivery from "./modules/furnitureDelivery"
 
 Vue.use(Vuex)
+
+const debug = process.env.NODE_ENV !== 'production'
 Vue.config.productionTip = false
 
-const store = new Vuex.Store({
+export default new Vuex.Store({
+  strict: debug,
+  modules: {
+      furnitureDelivery
+  },
   state: {
     furnitureStyles: [],
     furnitureProducts: []
@@ -30,6 +31,7 @@ const store = new Vuex.Store({
       return fetch('https://www.mocky.io/v2/5c9105cb330000112b649af8')
       .then(response => response.json())
       .then(data => data)
+      .catch(Error("api error"))
     }
   },
   getters: {
@@ -41,8 +43,3 @@ const store = new Vuex.Store({
     }
   }
 })
-
-new Vue({
-  render: h => h(App),
-  store
-}).$mount('#app')

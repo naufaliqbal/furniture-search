@@ -7,7 +7,7 @@ require("babel-polyfill");
 
 module.exports = {
     mode: 'development',
-    entry: ["babel-polyfill", "./src/index.js"],
+    entry: ["babel-polyfill", "./src/app.js"],
     resolve: {
         extensions: ['*', '.js', '.vue', '.json']
     },
@@ -56,13 +56,11 @@ module.exports = {
         publicPath: '/'
     },
     optimization: {
-        runtimeChunk: 'single',
         splitChunks: {
             cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
+                vendors: {
                     name: 'vendors',
-                    chunks: 'all'
+                    chunks: 'initial'
                 }
             }
         }

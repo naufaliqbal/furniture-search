@@ -9,16 +9,12 @@
       </div>
       <div id="app__header--filter">
         <FurnitureStyles v-model="checkedStyles"></FurnitureStyles>
-        <FurnitureDelivery v-model="rangeDelivery"></FurnitureDelivery>
+        <FurnitureDelivery></FurnitureDelivery>
       </div>
     </div>
-    <div id="app__body">
+    <!-- <div id="app__body">
       <FurnitureLists :filteredProducts="filteredProducts" :outOfStock="isOutOfStock"></FurnitureLists>
-    </div>
-    <div id="app__header--filter">
-        <FurnitureStyles v-model="checkedStyles"></FurnitureStyles>
-        <FurnitureDelivery v-model="rangeDelivery"></FurnitureDelivery>
-      </div>
+    </div> -->
   </div>
 </template>
 
@@ -40,7 +36,7 @@ export default {
   data () {
     return {
       checkedStyles: [],
-      rangeDelivery: [],
+      // rangeDelivery: [],
       searchKeyword: '',
       isOutOfStock: false,
       fabelioLogo: require('./assets/fabelio.png')
@@ -68,38 +64,38 @@ export default {
       })
       return products
     },
-    filteredProducts () {
-      let vm = this
-      if (
-        !vm.searchKeyword &&
-        !vm.rangeDelivery.length &&
-        !vm.checkedStyles.length
-      ) {
-        return vm.furnitureProducts
-      } else {
-        let filtered = vm.furnitureProducts
-          .filter(el => {
-            return vm.searchKeyword
-              ? el.name.toLowerCase().indexOf(vm.searchKeyword) > -1
-              : el
-          })
-          .filter(el => {
-            return vm.rangeDelivery.length
-              ? vm.rangeDelivery.indexOf(el.range_delivery) > -1
-              : el
-          })
-          .filter(el => {
-            return vm.checkedStyles.length
-              ? el.furniture_style.some(r => vm.checkedStyles.indexOf(r) > -1)
-              : el
-          })
+    // filteredProducts () {
+    //   let vm = this
+    //   if (
+    //     !vm.searchKeyword &&
+    //     !vm.rangeDelivery.length &&
+    //     !vm.checkedStyles.length
+    //   ) {
+    //     return vm.furnitureProducts
+    //   } else {
+    //     let filtered = vm.furnitureProducts
+    //       .filter(el => {
+    //         return vm.searchKeyword
+    //           ? el.name.toLowerCase().indexOf(vm.searchKeyword) > -1
+    //           : el
+    //       })
+    //       .filter(el => {
+    //         return vm.rangeDelivery.length
+    //           ? vm.rangeDelivery.indexOf(el.range_delivery) > -1
+    //           : el
+    //       })
+    //       .filter(el => {
+    //         return vm.checkedStyles.length
+    //           ? el.furniture_style.some(r => vm.checkedStyles.indexOf(r) > -1)
+    //           : el
+    //       })
 
-        // handle if products is out of stock
-        filtered.length ? (vm.isOutOfStock = false) : (vm.isOutOfStock = true)
+    //     // handle if products is out of stock
+    //     filtered.length ? (vm.isOutOfStock = false) : (vm.isOutOfStock = true)
 
-        return filtered
-      }
-    }
+    //     return filtered
+    //   }
+    // }
   }
 }
 </script>
