@@ -23,7 +23,7 @@ import FurnitureStyles from './components/FurnitureStyles'
 import FurnitureDelivery from './components/FurnitureDelivery'
 import FurnitureLists from './components/FurnitureLists'
 import FurnitureSearch from './components/FurnitureSearch'
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'app',
@@ -33,47 +33,8 @@ export default {
     FurnitureLists,
     FurnitureSearch
   },
-  data () {
-    return {
-      isOutOfStock: false,
-    }
-  },
   beforeMount() {
     this.getFurnitureData()
-  },
-  computed: {
-    // filteredProducts () {
-    //   let vm = this
-    //   if (
-    //     !vm.searchKeyword &&
-    //     !vm.rangeDelivery.length &&
-    //     !vm.checkedStyles.length
-    //   ) {
-    //     return vm.furnitureProducts
-    //   } else {
-    //     let filtered = vm.furnitureProducts
-    //       .filter(el => {
-    //         return vm.searchKeyword
-    //           ? el.name.toLowerCase().indexOf(vm.searchKeyword) > -1
-    //           : el
-    //       })
-    //       .filter(el => {
-    //         return vm.rangeDelivery.length
-    //           ? vm.rangeDelivery.indexOf(el.range_delivery) > -1
-    //           : el
-    //       })
-    //       .filter(el => {
-    //         return vm.checkedStyles.length
-    //           ? el.furniture_style.some(r => vm.checkedStyles.indexOf(r) > -1)
-    //           : el
-    //       })
-
-    //     // handle if products is out of stock
-    //     filtered.length ? (vm.isOutOfStock = false) : (vm.isOutOfStock = true)
-
-    //     return filtered
-    //   }
-    // }
   },
   methods: mapActions({
     getFurnitureData: "api/getFurnitureData",

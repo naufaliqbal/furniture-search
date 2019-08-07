@@ -1,21 +1,34 @@
 import Velocity from 'velocity-animate'
 
 const getters = {
-    products(state, getters, { api, furnitureSearch }) {
+    products(state, getters, { api, furnitureSearch, furnitureDelivery, furnitureStyles }) {
         let products = api.furnitureProducts
         let keywords = furnitureSearch.keywords
+        let rangeDelivery = furnitureDelivery.selectedRange
+        let selectedStyles = furnitureStyles.selectedStyles
+
         if (keywords != "") {
             products = products.filter(el => {
-                return keywords
-                    ? el.name.toLowerCase().indexOf(keywords) > -1
-                    : el
+                return el.name.toLowerCase().indexOf(keywords) > -1
             })
         }
-        return {
-            products: products,
-            outOfStock: products.length === 0 ? true : false
+        if (rangeDelivery.length) {
+            products = products.filter(el => {
+                return rangeDelivery.indexOf(el.range_delivery) > -1
+            })
         }
+        if (selectedStyles.length) {
+            products = products.filter(el => {
+                return el.furniture_style.some(r => selectedStyles.indexOf(r) > -1)
+            })
+        }
+
+        return products
     },
+    outOfStock(state, getters) {
+        if (getters.products.length > 0) return false
+        return true
+    }
 }
 
 const actions = {
@@ -31,15 +44,8 @@ const actions = {
     }
 }
 
-const mutations = {
-    changeStock(state, bool) {
-        state.outOfStock = bool
-    }
-}
-
 export default {
     namespaced: true,
     getters,
-    actions,
-    mutations
+    actions
 }

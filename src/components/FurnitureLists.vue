@@ -6,9 +6,9 @@
       :css="false"
       v-on:before-enter="beforeEnter"
       v-on:enter="enter"
-      v-if="!products.outOfStock"
+      v-if="!outOfStock"
     >
-      <li v-for="(product) in products.products" :key="product.name">
+      <li v-for="(product) in products" :key="product.name">
         <div class="product-name">
           <span class="product-name__title">{{product.name}}</span>
           <span
@@ -36,7 +36,7 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   methods: mapActions("furnitureLists", ["beforeEnter", "enter"]),
-  computed: mapGetters("furnitureLists", ["products"])
+  computed: mapGetters("furnitureLists", ["products", "outOfStock"])
 };
 </script>
 
