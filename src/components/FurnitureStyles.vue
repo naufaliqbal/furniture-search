@@ -1,6 +1,6 @@
 <template>
   <div id="furniture-styles">
-    <div id="furniture-styles__list" @mouseenter="expandStyles($event.target)" @mouseleave="collapseStyle($event.target)">
+    <div id="furniture-styles__list" @mouseenter="expandStyle($event)" @mouseleave="collapseStyle($event)">
       <p>{{placeholder ? placeholder : 'Furniture Styles'}}</p>
       <ul>
         <li v-for="(value, index) in furnitureStyles" :key="value" :data-index="index">
@@ -11,7 +11,7 @@
                 type="checkbox"
                 :id="index"
                 :value="value"
-                @click="selectedStyle($event.target)"
+                @click="selectStyle($event)"
               >
               <span class="checkmark"></span>
             </label>
@@ -23,34 +23,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: 'FurnitureStyles',
-  props: ['value'],
-  data () {
-    return {
-      placeholder: ''
-    }
-  },
-  computed: mapGetters([
-    "furnitureStyles"
-  ]),
-  methods: {
-    selectedStyle (target) {
-      // sync with app.vue
-      target.checked
-        ? this.value.push(target.value)
-        : this.value.splice(this.value.indexOf(target.value), 1)
-      // change placeholder
-      this.placeholder = this.value.join(', ')
-    },
-    expandStyles (target) {
-      target.querySelector('p').classList.add('expanded')
-    },
-    collapseStyle (target) {
-      target.querySelector('p').classList.remove('expanded')
-    }
-  }
+  computed: mapGetters({
+    furnitureStyles: "api/furnitureStyles",
+    placeholder: "furnitureStyles/placeholder"
+  }),
+  methods: mapActions("furnitureStyles", [
+    "selectStyle",
+    "expandStyle",
+    "collapseStyle"
+  ])
 }
 </script>
 

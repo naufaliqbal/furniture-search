@@ -19,7 +19,7 @@ const actions = {
         target.checked ? commit("addRange", target) : commit("removeRange", target)
         commit("changePlaceholder")
     },
-    expandStyles(_, event) {
+    expandStyle(_, event) {
         event.target.querySelector("p").classList.add("expanded")
     },
     collapseStyle(_, event) {

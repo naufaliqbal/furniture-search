@@ -8,7 +8,7 @@
         <FurnitureSearch v-model="searchKeyword"></FurnitureSearch>
       </div>
       <div id="app__header--filter">
-        <FurnitureStyles v-model="checkedStyles"></FurnitureStyles>
+        <FurnitureStyles></FurnitureStyles>
         <FurnitureDelivery></FurnitureDelivery>
       </div>
     </div>
@@ -23,7 +23,7 @@ import FurnitureStyles from './components/FurnitureStyles'
 import FurnitureDelivery from './components/FurnitureDelivery'
 import FurnitureLists from './components/FurnitureLists'
 import FurnitureSearch from './components/FurnitureSearch'
-import {mapGetters} from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'app',
@@ -35,35 +35,34 @@ export default {
   },
   data () {
     return {
-      checkedStyles: [],
-      // rangeDelivery: [],
       searchKeyword: '',
       isOutOfStock: false,
       fabelioLogo: require('./assets/fabelio.png')
     }
   },
   beforeMount() {
-    this.$store.dispatch("getFurnitureData");
+    this.getFurnitureData()
   },
   computed: {
-    ...mapGetters([
-      "furnitureStyles"
-    ]),
-    furnitureProducts() {
-      const products = this.$store.getters.furnitureProducts.map(el => {
-          if (+el.delivery_time <= 7) {
-            el['range_delivery'] = '1 week'
-          } else if (+el.delivery_time > 7 && +el.delivery_time <= 14) {
-            el['range_delivery'] = '2 weeks'
-          } else if (+el.delivery_time > 14 && +el.delivery_time <= 30) {
-            el['range_delivery'] = '1 month'
-          } else {
-            el['range_delivery'] = 'more'
-          }
-          return el
-      })
-      return products
-    },
+    ...mapGetters({
+      furnitureStyles: "api/furnitureStyles",
+      rangeDelivery: "furnitureDelivery/rangeDelivery"
+    }),
+    // furnitureProducts() {
+    //   const products = this.$store.getters.furnitureProducts.map(el => {
+    //       if (+el.delivery_time <= 7) {
+    //         el['range_delivery'] = '1 week'
+    //       } else if (+el.delivery_time > 7 && +el.delivery_time <= 14) {
+    //         el['range_delivery'] = '2 weeks'
+    //       } else if (+el.delivery_time > 14 && +el.delivery_time <= 30) {
+    //         el['range_delivery'] = '1 month'
+    //       } else {
+    //         el['range_delivery'] = 'more'
+    //       }
+    //       return el
+    //   })
+    //   return products
+    // },
     // filteredProducts () {
     //   let vm = this
     //   if (
@@ -96,7 +95,10 @@ export default {
     //     return filtered
     //   }
     // }
-  }
+  },
+  methods: mapActions({
+    getFurnitureData: "api/getFurnitureData",
+  })
 }
 </script>
 

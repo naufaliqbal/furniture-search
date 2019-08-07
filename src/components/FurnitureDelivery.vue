@@ -2,7 +2,7 @@
   <div id="furniture-delivery">
     <div
       id="furniture-delivery__list"
-      @mouseenter="expandStyles($event)"
+      @mouseenter="expandStyle($event)"
       @mouseleave="collapseStyle($event)"
     >
       <p>{{placeholder ? placeholder : 'Delivery Time'}}</p>
@@ -35,7 +35,7 @@ export default {
   ]),
   methods: mapActions("furnitureDelivery", [
     "collapseStyle",
-    "expandStyles",
+    "expandStyle",
     "selectRange"
   ])
 };
