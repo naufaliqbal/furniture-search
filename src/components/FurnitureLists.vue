@@ -6,9 +6,9 @@
       :css="false"
       v-on:before-enter="beforeEnter"
       v-on:enter="enter"
-      v-on:leave="leave"
+      v-if="!products.outOfStock"
     >
-      <li v-for="(product, index) in filteredProducts" :data-index="index" :key="product.name">
+      <li v-for="(product) in products.products" :key="product.name">
         <div class="product-name">
           <span class="product-name__title">{{product.name}}</span>
           <span
@@ -26,35 +26,18 @@
         </div>
       </li>
     </transition-group>
-    <div v-if="outOfStock" class="empty-notification">
+    <div v-else class="empty-notification">
       <h3>Barang tidak ditemukan</h3>
     </div>
   </div>
 </template>
 
 <script>
-import Velocity from 'velocity-animate'
+import { mapGetters, mapActions } from "vuex";
 export default {
-  name: 'FurnitureLists',
-  props: ['filteredProducts', 'outOfStock'],
-  methods: {
-    beforeEnter: function (el) {
-      el.style.opacity = 0
-      el.style.height = 0
-    },
-    enter: function (el, done) {
-      var delay = el.dataset.index * 100
-      setTimeout(function () {
-        Velocity(el, { opacity: 1 }, { complete: done })
-      }, delay)
-    },
-    leave: function (el, done) {
-      setTimeout(function () {
-        Velocity(el, { opacity: 0 }, { complete: done })
-      }, 0)
-    }
-  }
-}
+  methods: mapActions("furnitureLists", ["beforeEnter", "enter"]),
+  computed: mapGetters("furnitureLists", ["products"])
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -12,9 +12,9 @@
         <FurnitureDelivery></FurnitureDelivery>
       </div>
     </div>
-    <!-- <div id="app__body">
-      <FurnitureLists :filteredProducts="filteredProducts" :outOfStock="isOutOfStock"></FurnitureLists>
-    </div> -->
+    <div id="app__body">
+      <FurnitureLists></FurnitureLists>
+    </div>
   </div>
 </template>
 
@@ -42,25 +42,6 @@ export default {
     this.getFurnitureData()
   },
   computed: {
-    ...mapGetters({
-      furnitureStyles: "api/furnitureStyles",
-      rangeDelivery: "furnitureDelivery/rangeDelivery"
-    }),
-    // furnitureProducts() {
-    //   const products = this.$store.getters.furnitureProducts.map(el => {
-    //       if (+el.delivery_time <= 7) {
-    //         el['range_delivery'] = '1 week'
-    //       } else if (+el.delivery_time > 7 && +el.delivery_time <= 14) {
-    //         el['range_delivery'] = '2 weeks'
-    //       } else if (+el.delivery_time > 14 && +el.delivery_time <= 30) {
-    //         el['range_delivery'] = '1 month'
-    //       } else {
-    //         el['range_delivery'] = 'more'
-    //       }
-    //       return el
-    //   })
-    //   return products
-    // },
     // filteredProducts () {
     //   let vm = this
     //   if (
