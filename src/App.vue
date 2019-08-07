@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div id="app__logo">
-      <img :src="fabelioLogo" alt="fabelio-logo">
+      <img :src="require('./assets/fabelio.png')" alt="logo">
     </div>
     <div id="app__header">
       <div id="app__header--search">
-        <FurnitureSearch v-model="searchKeyword"></FurnitureSearch>
+        <FurnitureSearch></FurnitureSearch>
       </div>
       <div id="app__header--filter">
         <FurnitureStyles></FurnitureStyles>
@@ -35,9 +35,7 @@ export default {
   },
   data () {
     return {
-      searchKeyword: '',
       isOutOfStock: false,
-      fabelioLogo: require('./assets/fabelio.png')
     }
   },
   beforeMount() {

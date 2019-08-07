@@ -3,6 +3,7 @@ import Vuex from "vuex"
 import api from "../api/api"
 import furnitureDelivery from "./modules/furnitureDelivery"
 import furnitureStyles from "./modules/furnitureStyles"
+import furnitureSearch from "./modules/furnitureSearch"
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
   modules: {
     api,
     furnitureDelivery,
-    furnitureStyles
+    furnitureStyles,
+    furnitureSearch
   }
   // state: {
   //   furnitureStyles: [],

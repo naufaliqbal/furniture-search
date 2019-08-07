@@ -1,18 +1,18 @@
 <template>
   <div id="furniture-search">
-    <input type="text" placeholder="Search furniture" @input="search($event.target.value)">
+    <input type="text" placeholder="Search furniture" @input="inputKeywords($event)">
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
-  name: 'FurnitureSearch',
-  props: ['value'],
-  methods: {
-    search (value) {
-      this.$emit('input', value.toLowerCase())
-    }
-  }
+  methods: mapActions("furnitureSearch", [
+    "inputKeywords"
+  ]),
+  computed: mapGetters("furnitureSearch", [
+    "keywords"
+  ])
 }
 </script>
 
