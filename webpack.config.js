@@ -52,7 +52,7 @@ module.exports = {
     ],
     output: {
         filename: '[name].[contenthash].js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.join(__dirname, 'dist'),
         publicPath: '/'
     },
     optimization: {
