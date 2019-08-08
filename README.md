@@ -1,4 +1,5 @@
-# webpack-demo
+# furniture-search
+
 
 ## Project setup
 ```
