@@ -7,7 +7,7 @@ require("babel-polyfill");
 
 module.exports = {
     mode: 'development',
-    entry: ["babel-polyfill", "./src/app.js"],
+    entry: ["babel-polyfill", "./src/index.js"],
     resolve: {
         extensions: ['*', '.js', '.vue', '.json']
     },
