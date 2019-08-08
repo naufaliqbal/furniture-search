@@ -26,7 +26,7 @@
         </div>
       </li>
     </transition-group>
-    <div v-else class="empty-notification">
+    <div v-if="outOfStock" class="empty-notification">
       <h3>Barang tidak ditemukan</h3>
     </div>
   </div>
@@ -36,7 +36,16 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   methods: mapActions("furnitureLists", ["beforeEnter", "enter"]),
-  computed: mapGetters("furnitureLists", ["products", "outOfStock"])
+  computed: {
+    products({$store}) {
+      return $store.getters["furnitureLists/products"]
+    },
+    outOfStock() {
+      const products = this.products
+      if (products.length === 0 && !products.__ob__) return true
+      return false
+    }
+  }
 };
 </script>
 

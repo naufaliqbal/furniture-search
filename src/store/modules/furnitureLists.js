@@ -22,12 +22,7 @@ const getters = {
                 return el.furniture_style.some(r => selectedStyles.indexOf(r) > -1)
             })
         }
-
         return products
-    },
-    outOfStock(state, getters) {
-        if (getters.products.length > 0) return false
-        return true
     }
 }
 
